@@ -50,6 +50,7 @@
     self.callbackId = command.callbackId;
     self.toInstagram = FALSE;
     NSString    *objectAtIndex0 = [command argumentAtIndex:0];
+    NSString    *objectAtIndex1 = [command argumentAtIndex:1];
     
     CDVPluginResult *result;
     
@@ -66,7 +67,7 @@
         self.interactionController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
         self.interactionController .UTI = @"com.instagram.exclusivegram";
         self.interactionController .delegate = self;
-        self.interactionController .annotation = @{ @"InstagramCaption": @"Hello world" };
+        self.interactionController .annotation = @{ @"InstagramCaption":objectAtIndex1 };
         
         [self.interactionController presentOpenInMenuFromRect:CGRectZero inView:self.webView animated:YES];
         
