@@ -66,6 +66,8 @@
         self.interactionController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
         self.interactionController .UTI = @"com.instagram.exclusivegram";
         self.interactionController .delegate = self;
+        self.interactionController .annotation = @{ @"InstagramCaption": @"Hello world" };
+        
         [self.interactionController presentOpenInMenuFromRect:CGRectZero inView:self.webView animated:YES];
         
     } else {
