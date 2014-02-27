@@ -27,7 +27,7 @@ var exec = require('cordova/exec');
 var hasCheckedInstall,
     isAppInstalled;
 
-function shareDataUrl(dataUrl, callback) {
+function shareDataUrl(dataUrl, caption, callback) {
   var imageData = dataUrl.replace(/data:image\/(png|jpeg);base64,/, "");
 
   exec(function () {
@@ -36,7 +36,7 @@ function shareDataUrl(dataUrl, callback) {
 
   function () {
     callback && callback("error");
-  }, "Instagram", "share", [imageData]);
+  }, "Instagram", "share", [imageData, caption]);
 }
 
 var Plugin = {
@@ -54,7 +54,7 @@ var Plugin = {
       callback && callback(null, false);
     }, "Instagram", "isInstalled", []);
   },
-  share: function (data, callback) {
+  share: function (data, caption, callback) {
     // sanity check 
     if (hasCheckedInstall && !isAppInstalled) {
       console.log("oops, Instagram is not installed ... ");
@@ -65,10 +65,10 @@ var Plugin = {
         magic = "data:image";
     
     if (canvas) {
-      shareDataUrl(canvas.toDataURL(), callback);
+      shareDataUrl(canvas.toDataURL(), caption, callback);
     }
     else if (data.slice(0, magic.length) == magic) {
-      shareDataUrl(data, callback);
+      shareDataUrl(data, caption, callback);
     }
   }
 };
